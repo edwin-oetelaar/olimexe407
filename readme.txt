@@ -1,11 +1,10 @@
-You have to set the correct memory layout for your device in the linker script.
-Please check the FLASH and SRAM length.
+This is code for the olimex board E407 with Ethernet and a STM32F407ZGT6
 
-e.g.
+https://www.olimex.com/Products/ARM/ST/STM32-E407/open-source-hardware
 
+I will try to add a working FreeRTOS environment to it, so we can re-use this project.
 
-MEMORY
-{
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 0x08000   /* 32k */
-  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x01000   /*  4k */
-}
+Features of the board :
+STM32F407ZGT6 Cortex-M4 210DMIPS, 1MB Flash, 196KB RAM, 3 x 12-bit 2.4 MSPS A/D, 2 x 12-bit D/A converters, USB OTG FS and USB OTG HS, Ethernet, 14 timers, 3 x SPI, 3 x I2C, Ethernet, 2 CANs, 3 x 12 bit ADCs, 2 x 12 bit DACs, 114 GPIOs, Camera interface
+
+Price about 39 Euro.
