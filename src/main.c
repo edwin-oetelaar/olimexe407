@@ -1,18 +1,45 @@
+/*
+ * made by Edwin van den Oetelaar
+ * No warranty whatsoever
+ * made for personal use, but if you like it, use it
+*/
 
 #include "stm32f4xx_conf.h"
-/* Includes ------------------------------------------------------------------*/
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "timers.h"
+#include "event_groups.h"
+#include "semphr.h"
 
-
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-
-uint32_t sys_count=0;
-void SysTick_Handler(void)
+/* called when stack is about to crash */
+void vApplicationStackOverflowHook(TaskHandle_t xTask,
+                                   signed char *pcTaskName)
 {
-    ++sys_count;
+    /* hang here so we can attach a debugger to find out what happened */
+    for (; ;);
 }
+
+
+#ifdef USE_FULL_ASSERT
+
+/**
+   * @brief Reports the name of the source file and the source line number
+   * where the assert_param error has occurred.
+   * @param file: pointer to the source file name
+   * @param line: assert_param error line source number
+   * @retval None
+   */
+void assert_failed(uint8_t* file, uint32_t line)
+{
+
+    /* User can add his own implementation to report the file name and line number,
+    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+
+}
+
+#endif
+
 
 void hardware_init_LED_GPIO()
 {
@@ -39,146 +66,29 @@ void hardware_LED_Toggle()
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, i); // RESET
 
 }
+void vTimerCallback(void *ptr)
+{
+    /* do something visible */
+    hardware_LED_Toggle();
+}
 
 int main(void)
 {
 
     hardware_init_LED_GPIO();
 
-    uint32_t x = 0;
-    uint32_t y = 0;
+    TimerHandle_t xSecondenTimer;
+
+    xSecondenTimer = xTimerCreate("TimerSec", 500, pdTRUE, (void *) 1, vTimerCallback);
+
+    xTimerStart(xSecondenTimer, 0);
+
+    vTaskStartScheduler(); /* will not return */
 
     while (1) {
-        x++;
-
-        if (x % 88) {
-            y++;
-        } else {
-            hardware_LED_Toggle();
-        }
-
-
+        // we do not get here
     }
 }
 
 
-#if 0
-int main(void)
-{
 
-    /* USER CODE BEGIN 1 */
-
-    /* USER CODE END 1 */
-
-    /* MCU Configuration----------------------------------------------------------*/
-
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
-
-    /* Configure the system clock */
-    SystemClock_Config();
-
-    /* System interrupt init*/
-    /* Sets the priority grouping field */
-    HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_0);
-    HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-
-    /* Initialize all configured peripherals */
-    MX_GPIO_Init();
-
-    /* USER CODE BEGIN 2 */
-
-    /* USER CODE END 2 */
-
-    /* USER CODE BEGIN 3 */
-    /* Infinite loop */
-    while (1) {
-
-    }
-    /* USER CODE END 3 */
-
-}
-
-/** System Clock Configuration
-*/
-void SystemClock_Config(void)
-{
-
-    RCC_ClkInitTypeDef RCC_ClkInitStruct;
-    RCC_OscInitTypeDef RCC_OscInitStruct;
-
-    __PWR_CLK_ENABLE();
-
-    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-    RCC_OscInitStruct.PLL.PLLM = 8;
-    RCC_OscInitStruct.PLL.PLLN = 192;
-    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-    RCC_OscInitStruct.PLL.PLLQ = 4;
-    HAL_RCC_OscConfig(&RCC_OscInitStruct);
-
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1
-                                  |RCC_CLOCKTYPE_PCLK2;
-    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
-    HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4);
-
-}
-
-/** Configure pins as
-        * Analog
-        * Input
-        * Output
-        * EVENT_OUT
-        * EXTI
-*/
-void MX_GPIO_Init(void)
-{
-
-    /* GPIO Ports Clock Enable */
-    __GPIOC_CLK_ENABLE();
-    __GPIOH_CLK_ENABLE();
-
-}
-
-#endif
-
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
-
-#ifdef USE_FULL_ASSERT
-
-/**
-   * @brief Reports the name of the source file and the source line number
-   * where the assert_param error has occurred.
-   * @param file: pointer to the source file name
-   * @param line: assert_param error line source number
-   * @retval None
-   */
-void assert_failed(uint8_t* file, uint32_t line)
-{
-    /* USER CODE BEGIN 6 */
-    /* User can add his own implementation to report the file name and line number,
-    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-    /* USER CODE END 6 */
-
-}
-
-#endif
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-*/
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
