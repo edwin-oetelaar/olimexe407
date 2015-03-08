@@ -243,6 +243,7 @@
 		<Unit filename="inc\stm32f4xx.h" />
 		<Unit filename="inc\stm32f4xx_conf.h" />
 		<Unit filename="inc\system_stm32f4xx.h" />
+		<Unit filename="inc\utils_edwin.h" />
 		<Unit filename="readme.txt" />
 		<Unit filename="src\main.c">
 			<Option compilerVar="CC" />
@@ -253,12 +254,15 @@
 		<Unit filename="src\system_stm32f4xx.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src\utils_edwin.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="stm32f407zg_flash.ld" />
 		<Unit filename="stm32f407zg_sram.ld" />
 		<Extensions>
 			<code_completion />
 			<debugger>
-				<target_debugging_settings target="Debug" active_interface="ST-link">
+				<target_debugging_settings target="Release" active_interface="ST-link">
 					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBLOCKS}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
@@ -275,7 +279,7 @@
 						</family_options>
 					</debug_interface>
 				</target_debugging_settings>
-				<target_debugging_settings target="Release" active_interface="ST-link">
+				<target_debugging_settings target="Debug" active_interface="ST-link">
 					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBLOCKS}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
