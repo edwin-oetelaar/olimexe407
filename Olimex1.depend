@@ -248,12 +248,12 @@
 1425577456 source:c:\users\edwin\desktop\olimex1\src\system_stm32f4xx.c
 	"stm32f4xx.h"
 
-1398344897 source:c:\users\edwin\desktop\olimexe407\freertos\src\croutine.c
+1425659271 source:c:\users\edwin\desktop\olimexe407\freertos\src\croutine.c
 	"FreeRTOS.h"
 	"task.h"
 	"croutine.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\freertos.h
+1425659325 c:\users\edwin\desktop\olimexe407\freertos\inc\freertos.h
 	<stddef.h>
 	<stdint.h>
 	"projdefs.h"
@@ -265,7 +265,7 @@
 1425632156 c:\users\edwin\desktop\olimexe407\inc\freertosconfig.h
 	<stdint.h>
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\portable.h
+1425659358 c:\users\edwin\desktop\olimexe407\freertos\inc\portable.h
 	"..\..\Source\portable\owatcom\16bitdos\pc\portmacro.h"
 	"..\..\Source\portable\owatcom\16bitdos\flsh186\portmacro.h"
 	"../portable/GCC/ATMega323/portmacro.h"
@@ -326,46 +326,46 @@
 	"portmacro.h"
 	"mpu_wrappers.h"
 
-1398344898 c:\users\edwin\desktop\olimexe407\freertos\inc\portmacro.h
+1425659379 c:\users\edwin\desktop\olimexe407\freertos\inc\portmacro.h
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\mpu_wrappers.h
+1425659354 c:\users\edwin\desktop\olimexe407\freertos\inc\mpu_wrappers.h
 
-1398344901 c:\users\edwin\desktop\olimexe407\freertos\inc\task.h
+1425659379 c:\users\edwin\desktop\olimexe407\freertos\inc\task.h
 	"list.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\list.h
+1425659350 c:\users\edwin\desktop\olimexe407\freertos\inc\list.h
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\croutine.h
+1425659336 c:\users\edwin\desktop\olimexe407\freertos\inc\croutine.h
 	"list.h"
 
-1398344897 source:c:\users\edwin\desktop\olimexe407\freertos\src\event_groups.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\event_groups.c
 	<stdlib.h>
 	"FreeRTOS.h"
 	"task.h"
 	"timers.h"
 	"event_groups.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\timers.h
+1425659379 c:\users\edwin\desktop\olimexe407\freertos\inc\timers.h
 	"task.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\event_groups.h
+1425659342 c:\users\edwin\desktop\olimexe407\freertos\inc\event_groups.h
 	"timers.h"
 
-1398344899 source:c:\users\edwin\desktop\olimexe407\freertos\src\heap_4.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\heap_4.c
 	<stdlib.h>
 	"FreeRTOS.h"
 	"task.h"
 
-1398344897 source:c:\users\edwin\desktop\olimexe407\freertos\src\list.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\list.c
 	<stdlib.h>
 	"FreeRTOS.h"
 	"list.h"
 
-1398344898 source:c:\users\edwin\desktop\olimexe407\freertos\src\port.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\port.c
 	"FreeRTOS.h"
 	"task.h"
 
-1398344900 source:c:\users\edwin\desktop\olimexe407\freertos\src\queue.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\queue.c
 	<stdlib.h>
 	<string.h>
 	"FreeRTOS.h"
@@ -373,9 +373,9 @@
 	"queue.h"
 	"croutine.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\queue.h
+1425659379 c:\users\edwin\desktop\olimexe407\freertos\inc\queue.h
 
-1398344900 source:c:\users\edwin\desktop\olimexe407\freertos\src\tasks.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\tasks.c
 	<stdlib.h>
 	<string.h>
 	"FreeRTOS.h"
@@ -385,9 +385,9 @@
 	<stdio.h>
 	"tasks_test_access_functions.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\stackmacros.h
+1425659331 c:\users\edwin\desktop\olimexe407\freertos\inc\stackmacros.h
 
-1398344900 source:c:\users\edwin\desktop\olimexe407\freertos\src\timers.c
+1425659311 source:c:\users\edwin\desktop\olimexe407\freertos\src\timers.c
 	<stdlib.h>
 	"FreeRTOS.h"
 	"task.h"
@@ -400,7 +400,7 @@
 1425630755 c:\users\edwin\desktop\olimexe407\spl\inc\misc.h
 	"stm32f4xx.h"
 
-1425633149 c:\users\edwin\desktop\olimexe407\inc\stm32f4xx.h
+1425659407 c:\users\edwin\desktop\olimexe407\inc\stm32f4xx.h
 	"core_cm4.h"
 	"system_stm32f4xx.h"
 	<stdint.h>
@@ -421,9 +421,9 @@
 1425630755 c:\users\edwin\desktop\olimexe407\cmsis\core_cm4_simd.h
 	<cmsis_iar.h>
 
-1425630755 c:\users\edwin\desktop\olimexe407\inc\system_stm32f4xx.h
+1425659418 c:\users\edwin\desktop\olimexe407\inc\system_stm32f4xx.h
 
-1425630755 c:\users\edwin\desktop\olimexe407\inc\stm32f4xx_conf.h
+1425659414 c:\users\edwin\desktop\olimexe407\inc\stm32f4xx_conf.h
 	"stm32f4xx_adc.h"
 	"stm32f4xx_can.h"
 	"stm32f4xx_crc.h"
@@ -635,20 +635,28 @@
 	"stm32f4xx_wwdg.h"
 	"stm32f4xx_rcc.h"
 
-1425634386 source:c:\users\edwin\desktop\olimexe407\src\main.c
+1425741555 source:c:\users\edwin\desktop\olimexe407\src\main.c
 	"stm32f4xx_conf.h"
 	"FreeRTOS.h"
+	"utils_edwin.h"
 	"task.h"
 	"semphr.h"
 	"timers.h"
 	"event_groups.h"
 	"semphr.h"
 
-1398344897 c:\users\edwin\desktop\olimexe407\freertos\inc\semphr.h
+1425659379 c:\users\edwin\desktop\olimexe407\freertos\inc\semphr.h
 	"queue.h"
 
-1425630755 source:c:\users\edwin\desktop\olimexe407\src\startup_stm32f4xx.s
+1425820257 source:c:\users\edwin\desktop\olimexe407\src\startup_stm32f4xx.s
 
-1425634008 source:c:\users\edwin\desktop\olimexe407\src\system_stm32f4xx.c
+1425823723 source:c:\users\edwin\desktop\olimexe407\src\system_stm32f4xx.c
 	"stm32f4xx.h"
+
+1425741858 c:\users\edwin\desktop\olimexe407\inc\utils_edwin.h
+
+1425742084 source:c:\users\edwin\desktop\olimexe407\src\utils_edwin.c
+	"utils_edwin.h"
+	"FreeRTOS.h"
+	"task.h"
 
