@@ -6,39 +6,12 @@
 
 #include "stm32f4xx_conf.h"
 #include "FreeRTOS.h"
+#include "utils_edwin.h"
 #include "task.h"
 #include "semphr.h"
 #include "timers.h"
 #include "event_groups.h"
 #include "semphr.h"
-
-/* called when stack is about to crash */
-void vApplicationStackOverflowHook(TaskHandle_t xTask,
-                                   signed char *pcTaskName)
-{
-    /* hang here so we can attach a debugger to find out what happened */
-    for (; ;);
-}
-
-
-#ifdef USE_FULL_ASSERT
-
-/**
-   * @brief Reports the name of the source file and the source line number
-   * where the assert_param error has occurred.
-   * @param file: pointer to the source file name
-   * @param line: assert_param error line source number
-   * @retval None
-   */
-void assert_failed(uint8_t* file, uint32_t line)
-{
-
-    /* User can add his own implementation to report the file name and line number,
-    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-
-}
-
-#endif
 
 
 void hardware_init_LED_GPIO()
