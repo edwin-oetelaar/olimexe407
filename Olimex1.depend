@@ -635,7 +635,7 @@
 	"stm32f4xx_wwdg.h"
 	"stm32f4xx_rcc.h"
 
-1425741555 source:c:\users\edwin\desktop\olimexe407\src\main.c
+1425907322 source:c:\users\edwin\desktop\olimexe407\src\main.c
 	"stm32f4xx_conf.h"
 	"FreeRTOS.h"
 	"utils_edwin.h"
@@ -644,6 +644,8 @@
 	"timers.h"
 	"event_groups.h"
 	"semphr.h"
+	"my_queue.h"
+	<stdio.h>
 
 1425659379 c:\users\edwin\desktop\olimexe407\freertos\inc\semphr.h
 	"queue.h"
@@ -659,4 +661,6 @@
 	"utils_edwin.h"
 	"FreeRTOS.h"
 	"task.h"
+
+1425905341 c:\users\edwin\desktop\olimexe407\inc\my_queue.h
 
