@@ -96,9 +96,9 @@
 			<Cursor1 position="818" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="FreeRTOS\src\tasks.c" open="0" top="0" tabpos="29" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="FreeRTOS\src\tasks.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="20195" topLine="375" />
+			<Cursor1 position="94384" topLine="2264" />
 		</Cursor>
 	</File>
 	<File name="FreeRTOS\src\timers.c" open="0" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -111,12 +111,12 @@
 			<Cursor1 position="3429" topLine="61" />
 		</Cursor>
 	</File>
-	<File name="SPL\src\stm32f4xx_rcc.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="SPL\src\stm32f4xx_rcc.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="52595" topLine="1214" />
 		</Cursor>
 	</File>
-	<File name="inc\stm32f4xx.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="inc\stm32f4xx.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="15631" topLine="202" />
 		</Cursor>
@@ -131,7 +131,7 @@
 			<Cursor1 position="939" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="inc\utils_edwin.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="inc\utils_edwin.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="274" topLine="0" />
 		</Cursor>
@@ -141,14 +141,14 @@
 			<Cursor1 position="456" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\main.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="725" topLine="2" />
+			<Cursor1 position="4847" topLine="109" />
 		</Cursor>
 	</File>
-	<File name="src\startup_stm32f4xx.S" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\startup_stm32f4xx.S" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10188" topLine="187" />
+			<Cursor1 position="9439" topLine="187" />
 		</Cursor>
 	</File>
 	<File name="src\system_stm32f4xx.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -156,7 +156,7 @@
 			<Cursor1 position="8052" topLine="143" />
 		</Cursor>
 	</File>
-	<File name="src\utils_edwin.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\utils_edwin.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1583" topLine="33" />
 		</Cursor>
