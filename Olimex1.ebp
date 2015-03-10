@@ -245,6 +245,7 @@
 		<Unit filename="cmsis\core_cm4_simd.h" />
 		<Unit filename="cmsis\core_cmFunc.h" />
 		<Unit filename="cmsis\core_cmInstr.h" />
+		<Unit filename="inc\audio_codec.h" />
 		<Unit filename="inc\my_queue.h" />
 		<Unit filename="inc\queue.h" />
 		<Unit filename="inc\stm32f4xx.h" />
