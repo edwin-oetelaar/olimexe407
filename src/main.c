@@ -147,14 +147,14 @@ void init_I2C1(void)
     GPIO_StructInit(&GPIO_InitStruct);
     I2C_StructInit(&I2C_InitStruct);
     /* enable gpio PB8 en PB9 as AF */
-    GPIO_InitStruct.GPIO_Pin =GPIO_Pin_8 | GPIO_Pin_9;
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
     GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOB,&GPIO_InitStruct);
     /* map AF pins to gpio */
-    GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_I2C1);
+    GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_I2C1);
     GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_I2C1);
     // enable clocks gpio
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
@@ -175,9 +175,9 @@ void init_I2C1(void)
     I2C_Cmd(I2C1, ENABLE);
     I2C_Init(I2C1, &I2C_InitStruct);
 
-
-
 }
+
+
 
 
 // this is the interrupt request handler (IRQ) for ALL USART6 interrupts
@@ -223,6 +223,8 @@ void vTimerCallback(void *ptr)
     hardware_LED_Toggle();
 }
 
+
+
 int main(void)
 {
     QUEUE_INIT(my_TX_queue); // usart6 serial
@@ -238,6 +240,7 @@ int main(void)
     SERIAL_puts("I2C init\r\n");
 // we nemen PB9 en PB8 I2C1 omdat die op UEXT zitten
     init_I2C1();
+    Codec_ReadRegister()
     SERIAL_puts("I2C init done\r\n");
 
 
