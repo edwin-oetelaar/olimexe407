@@ -246,6 +246,7 @@
 		<Unit filename="cmsis\core_cmFunc.h" />
 		<Unit filename="cmsis\core_cmInstr.h" />
 		<Unit filename="inc\audio_codec.h" />
+		<Unit filename="inc\maple_codec.h" />
 		<Unit filename="inc\my_queue.h" />
 		<Unit filename="inc\queue.h" />
 		<Unit filename="inc\stm32f4xx.h" />
@@ -254,6 +255,9 @@
 		<Unit filename="inc\utils_edwin.h" />
 		<Unit filename="readme.txt" />
 		<Unit filename="src\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src\maple_codec.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src\startup_stm32f4xx.S">
