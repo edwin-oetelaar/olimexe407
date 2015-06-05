@@ -13,7 +13,11 @@
 #include "event_groups.h"
 #include "semphr.h"
 #include "my_queue.h"
+#include "maple_codec.h"
 #include <stdio.h>
+#include "WM_8731.h"
+
+#define USE_DEFAULT_TIMEOUT_CALLBACK 1 /* forces hangup */
 
 const uint32_t baudrate = 115200 ; // debug console baud rate
 
@@ -149,9 +153,9 @@ void init_I2C1(void)
     /* enable gpio PB8 en PB9 as AF */
     GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP; // internal pull up??
     GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_2MHz;
     GPIO_Init(GPIOB,&GPIO_InitStruct);
     /* map AF pins to gpio */
     GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_I2C1);
@@ -162,19 +166,29 @@ void init_I2C1(void)
 
     /* Enable the CODEC_I2C peripheral clock */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
+    /* Reset I2C1 IP */
+  RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, ENABLE);
+  int x=100000;
+  while (x) {
+    x--;
+  }
+ /* Release reset signal of I2C1 IP */
+  RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, DISABLE);
 
     /* CODEC_I2C peripheral configuration */
     I2C_DeInit(I2C1);
     I2C_InitStruct.I2C_Mode = I2C_Mode_I2C;
     I2C_InitStruct.I2C_DutyCycle = I2C_DutyCycle_2;
-    I2C_InitStruct.I2C_OwnAddress1 = 0x33;
+
+    I2C_InitStruct.I2C_OwnAddress1 = 0x00;
     I2C_InitStruct.I2C_Ack = I2C_Ack_Enable;
     I2C_InitStruct.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
     I2C_InitStruct.I2C_ClockSpeed = 100000;
     /* Enable the I2C peripheral */
-    I2C_Cmd(I2C1, ENABLE);
-    I2C_Init(I2C1, &I2C_InitStruct);
 
+    I2C_Cmd(I2C1, ENABLE);
+
+    I2C_Init(I2C1, &I2C_InitStruct);
 }
 
 
@@ -240,9 +254,8 @@ int main(void)
     SERIAL_puts("I2C init\r\n");
 // we nemen PB9 en PB8 I2C1 omdat die op UEXT zitten
     init_I2C1();
-    Codec_ReadRegister()
     SERIAL_puts("I2C init done\r\n");
-
+   // uint8_t killswitch_val = Codec_ReadRegister(WM8731_LINVOL); /* read left input volume */
 
     TimerHandle_t xSecondenTimer;
 
@@ -258,4 +271,17 @@ int main(void)
 }
 
 
-
+#ifdef USE_DEFAULT_TIMEOUT_CALLBACK
+/**
+  * @brief  Basic management of the timeout situation.
+  * @param  None
+  * @retval None
+  */
+uint32_t Codec_TIMEOUT_UserCallback(void)
+{
+  /* Block communication and all processes */
+  while (1)
+  {
+  }
+}
+#endif /* USE_DEFAULT_TIMEOUT_CALLBACK */

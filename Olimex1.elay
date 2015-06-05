@@ -1,164 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<EmBlocks_layout_file>
+<EmBitz_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="FreeRTOS\inc\FreeRTOS.h" open="0" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\main.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="23994" topLine="698" />
+			<Cursor1 position="5045" topLine="138" />
 		</Cursor>
 	</File>
-	<File name="FreeRTOS\inc\StackMacros.h" open="0" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\maple_codec.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2129" topLine="0" />
+			<Cursor1 position="6740" topLine="148" />
 		</Cursor>
 	</File>
-	<File name="FreeRTOS\inc\croutine.h" open="0" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1757" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\event_groups.h" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2155" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\list.h" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2000" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\mpu_wrappers.h" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2129" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\portable.h" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1676" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\portmacro.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1757" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\projdefs.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1840" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\queue.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1514" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\semphr.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1754" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\task.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3728" topLine="53" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\inc\timers.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1586" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\croutine.c" open="0" top="0" tabpos="28" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1595" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\event_groups.c" open="0" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1219" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\heap_4.c" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="578" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\list.c" open="0" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="738" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\port.c" open="0" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="658" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\queue.c" open="0" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="818" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\tasks.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="94384" topLine="2264" />
-		</Cursor>
-	</File>
-	<File name="FreeRTOS\src\timers.c" open="0" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1138" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="SPL\inc\stm32f4xx_gpio.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3429" topLine="61" />
-		</Cursor>
-	</File>
-	<File name="SPL\src\stm32f4xx_rcc.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="52595" topLine="1214" />
-		</Cursor>
-	</File>
-	<File name="inc\stm32f4xx.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="15631" topLine="202" />
-		</Cursor>
-	</File>
-	<File name="inc\stm32f4xx_conf.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1322" topLine="15" />
-		</Cursor>
-	</File>
-	<File name="inc\system_stm32f4xx.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="939" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="inc\utils_edwin.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="274" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="readme.txt" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="456" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4847" topLine="109" />
-		</Cursor>
-	</File>
-	<File name="src\startup_stm32f4xx.S" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\startup_stm32f4xx.S" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="9439" topLine="187" />
 		</Cursor>
 	</File>
-	<File name="src\system_stm32f4xx.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8052" topLine="143" />
-		</Cursor>
-	</File>
-	<File name="src\utils_edwin.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1583" topLine="33" />
-		</Cursor>
-	</File>
-</EmBlocks_layout_file>
+</EmBitz_layout_file>
