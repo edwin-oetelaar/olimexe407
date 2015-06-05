@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<EmBlocks_project_file>
-	<EmBlocksVersion release="2.30" revision="1" />
+<EmBitz_project_file>
+	<EmBitzVersion release="0.20" revision="0" />
 	<FileVersion major="1" minor="0" />
 	<Project>
 		<Option title="Olimex1" />
@@ -245,6 +245,7 @@
 		<Unit filename="cmsis\core_cm4_simd.h" />
 		<Unit filename="cmsis\core_cmFunc.h" />
 		<Unit filename="cmsis\core_cmInstr.h" />
+		<Unit filename="inc\WM_8731.h" />
 		<Unit filename="inc\audio_codec.h" />
 		<Unit filename="inc\maple_codec.h" />
 		<Unit filename="inc\my_queue.h" />
@@ -312,4 +313,4 @@
 			<envvars />
 		</Extensions>
 	</Project>
-</EmBlocks_project_file>
+</EmBitz_project_file>
