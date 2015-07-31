@@ -3,6 +3,14 @@ This is code for the olimex board E407 with Ethernet and a STM32F407ZGT6
 https://www.olimex.com/Products/ARM/ST/STM32-E407/open-source-hardware
 
 I will try to add a working FreeRTOS environment to it, so we can re-use this project.
+Current status :
+Setup board to 120MHz or 168MHz
+Runs with latest CMSIS and SPL from ST.
+FreeRTOS runs stable.
+ARM math works, including DSP functions
+
+- todo check if I2C works
+- make tests
 
 Features of the board :
 STM32F407ZGT6 Cortex-M4 210DMIPS,

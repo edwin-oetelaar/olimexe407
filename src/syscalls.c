@@ -285,8 +285,8 @@ int _write(int file, char *ptr, int len) {
     }
     return len;
 }
+#endif
 
-#if 0
 #include <stdio.h>
 #include <stdarg.h>
 #include <sys/types.h>
@@ -344,6 +344,10 @@ void abort(void) {
     while (1);
 }
 
+
+void _exit(int status) {
+    _write(1, "exit", 4);
+    while (1) { ;
+    }
+}
 /* --------------------------------- End Of File ------------------------------ */
-#endif
-#endif
