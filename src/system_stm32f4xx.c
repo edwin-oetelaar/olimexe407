@@ -56,9 +56,9 @@
   *-----------------------------------------------------------------------------
   *        APB2 Prescaler                         | 2
   *-----------------------------------------------------------------------------
-  *        HSE Frequency(Hz)                      | 25000000
+  *        HSE Frequency(Hz)                      | 12000000
   *-----------------------------------------------------------------------------
-  *        PLL_M                                  | 25
+  *        PLL_M                                  | 12
   *-----------------------------------------------------------------------------
   *        PLL_N                                  | 336
   *-----------------------------------------------------------------------------
@@ -152,15 +152,20 @@ This value must be a multiple of 0x200. */
 /******************************************************************************/
 
 /************************* PLL Parameters *************************************/
+/* test met system op 120MHz ipv 168 MHz, met CubeMX uitgerekend */
+#define PLL_M      12
+#define PLL_N      240
+#define PLL_P      2
+#define PLL_Q      55
+
+// de normale settings met 168MHz
 /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */
-#define PLL_M      7 /* 25 */
-#define PLL_N      196 /* 336 */
-
+//#define PLL_M      12
+//#define PLL_N      336
 /* SYSCLK = PLL_VCO / PLL_P */
-#define PLL_P      2 /* 2 */
-
+//#define PLL_P      2
 /* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */
-#define PLL_Q      7 /* 7 */
+//#define PLL_Q      7
 
 /******************************************************************************/
 
@@ -180,7 +185,7 @@ This value must be a multiple of 0x200. */
   * @{
   */
 
-uint32_t SystemCoreClock = 168000000; /* 168000000 */
+uint32_t SystemCoreClock = 120000000; /* 168000000 */
 
 __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 
