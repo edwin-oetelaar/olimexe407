@@ -1,3 +1,4 @@
 Edwin van den Oetelaar
 Ben Zijlstra
-We are using Emblock 2.30 made by emblocks.org (Gerard Zagema)
+We are using EmBitz made by emblocks.org (Gerard Zagema)
+ST-LINK on a Nucleo board

@@ -13,20 +13,33 @@
 #include "event_groups.h"
 #include "semphr.h"
 #include "my_queue.h"
-#include "maple_codec.h"
+//#include "maple_codec.h"
 #include <stdio.h>
-#include "WM_8731.h"
+// #include "WM_8731.h"
 
 #define USE_DEFAULT_TIMEOUT_CALLBACK 1 /* forces hangup */
 
-const uint32_t baudrate = 115200 ; // debug console baud rate
+const uint32_t baudrate = 115200; // debug console baud rate
+/* Note to SELF :
+ * choose the correct target in stm32f4xx.h eg STM32F40_41xxx for the olimex stm32f407 ethernet board
+ * choose the correct crystal frequency 12MHz #define HSE_VALUE ((uint32_t)12000000)  Value of the External oscillator in Hz
+ * double check the PLL values in system_stm32f4xx.c
+ * example for olimex 12MHz external
+ * #define PLL_M      12
+ * #define PLL_N      336
+ * #define PLL_P      2
+ * USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ
+ *  #define PLL_Q      7
+*/
 
-struct {
+struct
+{
     queue_hdr_t hdr; // must be named "hdr"
     uint8_t items[256]; // must be named "items", 1 space wasted
 } my_TX_queue;
 
-struct {
+struct
+{
     queue_hdr_t hdr; // must be named "hdr"
     uint8_t items[128]; // must be named "items", 1 space wasted
 } my_RX_queue;
@@ -38,13 +51,17 @@ Als de buffer vol is worden de tekens zomaar weggegooid, jammer dan.
  */
 void SERIAL_puts(const char *s)
 {
-    while (*s) {
-        if (!QUEUE_FULL(my_TX_queue)) {
+    while (*s)
+    {
+        if (!QUEUE_FULL(my_TX_queue))
+        {
             // er is ruimte, stop teken in de queue
             QUEUE_PUT(my_TX_queue, *s);
             // volgende teken
             s++;
-        } else {
+        }
+        else
+        {
             // buffer vol, we moeten wat anders doen nu
             // deze functie blockt nu
             USART_ITConfig(USART6, USART_IT_TXE, ENABLE);
@@ -57,14 +74,18 @@ void SERIAL_puts(const char *s)
 
 void SERIAL_write(const char *s, uint32_t len)
 {
-    while (len) {
-        if (!QUEUE_FULL(my_TX_queue)) {
+    while (len)
+    {
+        if (!QUEUE_FULL(my_TX_queue))
+        {
             // er is ruimte, stop teken in de queue
             QUEUE_PUT(my_TX_queue, *s);
             // volgende teken
             s++;
             len--;
-        } else {
+        }
+        else
+        {
             // buffer vol, we moeten wat anders doen nu
             // deze functie blockt nu
             USART_ITConfig(USART6, USART_IT_TXE, ENABLE);
@@ -83,7 +104,7 @@ void init_LED_GPIO()
     // enable Clocks for APB1 and GPIOB en C
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
     // de pinnen van de LED instellen
-    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13 ;
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13;
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_2MHz;
     GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
@@ -105,40 +126,48 @@ void init_USART6(uint32_t baudrate)
     GPIO_StructInit(&GPIO_InitStruct);
     USART_StructInit(&USART_InitStruct);
 
-    // enable Clocks for APB1 and GPIOA
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
+    // enable Clocks for APB2 and GPIOC
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
-    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7; // Pins 6 (TX) and 7 (RX) are used
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    //Connect to AF
+    // Connect to pins to AF (must be first??)
     GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_USART6); // PA2 tx
     GPIO_PinAFConfig(GPIOC, GPIO_PinSource7, GPIO_AF_USART6); // PA3 rx
 
+    // init the pins as alternate function
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7; // Pins 6 (TX) and 7 (RX) are used
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+    GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    /* enable clock on usart */
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
+
+    /* setup the usart parameters */
     USART_InitStruct.USART_BaudRate = baudrate;
     USART_InitStruct.USART_WordLength = USART_WordLength_8b;
     USART_InitStruct.USART_StopBits = USART_StopBits_1;
     USART_InitStruct.USART_Parity = USART_Parity_No;
     USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
     USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
-    USART_Init(USART6, &USART_InitStruct);
 
-    USART_ITConfig(USART6, USART_IT_RXNE, ENABLE); // enable the USART2 receive interrupt
+    /* write config into usart */
+    USART_Init(USART6, &USART_InitStruct);
+// enable the USART2 receive interrupt
+    USART_ITConfig(USART6, USART_IT_RXNE, ENABLE);
     //disable Transmit Data Register empty interrupt
     USART_ITConfig(USART6, USART_IT_TXE, DISABLE);
 
+    // setup the interrupt controller
     NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0f;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0f;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0f;//f;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0f; //f;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    // write config into registers
     NVIC_Init(&NVIC_InitStructure);
-
-    USART_Cmd(USART6, ENABLE); //Enable USART2
+//Enable USART6
+    USART_Cmd(USART6, ENABLE);
 }
 
 // i2c PB8 en PB9
@@ -156,24 +185,25 @@ void init_I2C1(void)
     GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP; // internal pull up??
     GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_Init(GPIOB,&GPIO_InitStruct);
+    GPIO_Init(GPIOB, &GPIO_InitStruct);
     /* map AF pins to gpio */
     GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_I2C1);
     GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_I2C1);
     // enable clocks gpio
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 
 
     /* Enable the CODEC_I2C peripheral clock */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
     /* Reset I2C1 IP */
-  RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, ENABLE);
-  int x=100000;
-  while (x) {
-    x--;
-  }
- /* Release reset signal of I2C1 IP */
-  RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, DISABLE);
+    RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, ENABLE);
+    int x = 100000;
+    while (x)
+    {
+        x--;
+    }
+    /* Release reset signal of I2C1 IP */
+    RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, DISABLE);
 
     /* CODEC_I2C peripheral configuration */
     I2C_DeInit(I2C1);
@@ -192,26 +222,30 @@ void init_I2C1(void)
 }
 
 
-
-
 // this is the interrupt request handler (IRQ) for ALL USART6 interrupts
 void USART6_IRQHandler(void)
 {
     /* if Receive Register not empty then get byte */
-    if (USART_GetITStatus(USART6, USART_IT_RXNE) != RESET) {
+    if (USART_GetITStatus(USART6, USART_IT_RXNE) != RESET)
+    {
         uint8_t ch = USART6->DR;
         // als de buffer niet vol dan erbij proppen, anders jammer dan, weg ermee
-        if (!QUEUE_FULL(my_RX_queue)) {
+        if (!QUEUE_FULL(my_RX_queue))
+        {
             QUEUE_PUT(my_RX_queue, ch);
         }
     }
     // moeten we wat zenden, TX empty interrupt?
-    if (USART_GetITStatus(USART6, USART_IT_TXE) != RESET) {
+    if (USART_GetITStatus(USART6, USART_IT_TXE) != RESET)
+    {
         uint8_t ch;
-        if (!QUEUE_EMPTY(my_TX_queue)) {
+        if (!QUEUE_EMPTY(my_TX_queue))
+        {
             QUEUE_GET(my_TX_queue, ch);
             USART_SendData(USART6, ch);
-        } else {
+        }
+        else
+        {
             // no data in buf, disable Transmit Data Register empty interrupt
             USART_ITConfig(USART6, USART_IT_TXE, DISABLE);
         }
@@ -227,7 +261,7 @@ void hardware_LED_Toggle()
     i = !i;
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, i); // RESET
     char buf[20];
-    snprintf(buf,sizeof (buf) / sizeof(buf[0]),"x=%lu\r\n",x++);
+    snprintf(buf, sizeof(buf) / sizeof(buf[0]), "x=%lu\r\n", x++);
     SERIAL_puts(buf);
 }
 
@@ -238,13 +272,25 @@ void vTimerCallback(void *ptr)
 }
 
 
-
 int main(void)
 {
     QUEUE_INIT(my_TX_queue); // usart6 serial
     QUEUE_INIT(my_RX_queue); // usart6 serial
 
     init_USART6(baudrate);
+    RCC_ClocksTypeDef RCC_kloks;
+    RCC_GetClocksFreq(&RCC_kloks);
+
+    char buf[100];
+
+    sprintf(buf,"speeds %d %d %d %d\n",
+            RCC_kloks.SYSCLK_Frequency,
+            RCC_kloks.HCLK_Frequency,
+            RCC_kloks.PCLK1_Frequency,
+            RCC_kloks.PCLK2_Frequency);
+
+    SERIAL_puts(buf);
+
     SERIAL_puts("USART6 init done\r\n");
     SERIAL_puts("GPIO init\r\n");
     init_LED_GPIO();
@@ -253,9 +299,9 @@ int main(void)
 
     SERIAL_puts("I2C init\r\n");
 // we nemen PB9 en PB8 I2C1 omdat die op UEXT zitten
-    init_I2C1();
+ //   init_I2C1();
     SERIAL_puts("I2C init done\r\n");
-   // uint8_t killswitch_val = Codec_ReadRegister(WM8731_LINVOL); /* read left input volume */
+    // uint8_t killswitch_val = Codec_ReadRegister(WM8731_LINVOL); /* read left input volume */
 
     TimerHandle_t xSecondenTimer;
 
@@ -265,13 +311,15 @@ int main(void)
 
     vTaskStartScheduler(); /* will not return */
 
-    while (1) {
+    while (1)
+    {
         // we do not get here
     }
 }
 
 
 #ifdef USE_DEFAULT_TIMEOUT_CALLBACK
+
 /**
   * @brief  Basic management of the timeout situation.
   * @param  None
@@ -279,9 +327,10 @@ int main(void)
   */
 uint32_t Codec_TIMEOUT_UserCallback(void)
 {
-  /* Block communication and all processes */
-  while (1)
-  {
-  }
+    /* Block communication and all processes */
+    while (1)
+    {
+    }
 }
+
 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */

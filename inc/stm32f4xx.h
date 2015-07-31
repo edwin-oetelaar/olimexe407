@@ -12,15 +12,15 @@
   *          is using in the C source code, usually in main.c. This file contains:
   *           - Configuration section that allows to select:
   *              - The device used in the target application
-  *              - To use or not the peripheral’s drivers in application code(i.e.
-  *                code will be based on direct access to peripheral’s registers
+  *              - To use or not the peripheralÂ’s drivers in application code(i.e.
+  *                code will be based on direct access to peripheralÂ’s registers
   *                rather than drivers API), this option is controlled by
   *                "#define USE_STDPERIPH_DRIVER"
   *              - To change few application-specific parameters such as the HSE
   *                crystal frequency
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheralÂ’s registers hardware
   *
   ******************************************************************************
   * @attention
@@ -66,9 +66,9 @@
   */
 
 #if !defined (STM32F40_41xxx) && !defined (STM32F427_437xx) && !defined (STM32F429_439xx) && !defined (STM32F401xx) && !defined (STM32F411xE)
-#define STM32F40_41xxx   /*!< STM32F405RG, STM32F405VG, STM32F405ZG, STM32F415RG, STM32F415VG, STM32F415ZG,
-                              STM32F407VG, STM32F407VE, STM32F407ZG, STM32F407ZE, STM32F407IG, STM32F407IE,
-                              STM32F417VG, STM32F417VE, STM32F417ZG, STM32F417ZE, STM32F417IG and STM32F417IE Devices */
+#define STM32F40_41xxx    /*!< STM32F405RG, STM32F405VG, STM32F405ZG, STM32F415RG, STM32F415VG, STM32F415ZG,
+                                      STM32F407VG, STM32F407VE, STM32F407ZG, STM32F407ZE, STM32F407IG, STM32F407IE,
+                                      STM32F417VG, STM32F417VE, STM32F417ZG, STM32F417ZE, STM32F417IG and STM32F417IE Devices */
 
   /* #define STM32F427_437xx */  /*!< STM32F427VG, STM32F427VI, STM32F427ZG, STM32F427ZI, STM32F427IG, STM32F427II,
                                       STM32F437VG, STM32F437VI, STM32F437ZG, STM32F437ZI, STM32F437IG, STM32F437II Devices */
@@ -108,7 +108,7 @@
    In this case, these drivers will not be included and the application code will
    be based on direct access to peripherals registers
    */
-#define USE_STDPERIPH_DRIVER
+  /*#define USE_STDPERIPH_DRIVER */
 #endif /* USE_STDPERIPH_DRIVER */
 
 /**
@@ -120,7 +120,7 @@
   */
 
 #if !defined  (HSE_VALUE)
-  #define HSE_VALUE    ((uint32_t)12000000) /*!< Value of the External oscillator in Hz */
+  #define HSE_VALUE    ((uint32_t)12000000) /*!< EDWIN MODIFIED Value of the External oscillator in Hz */
 
 #endif /* HSE_VALUE */
 

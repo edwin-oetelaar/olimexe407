@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EmBitz_project_file>
-	<EmBitzVersion release="0.20" revision="0" />
+	<EmBitzVersion release="0.40" revision="0" />
 	<FileVersion major="1" minor="0" />
 	<Project>
 		<Option title="Olimex1" />
@@ -56,9 +56,9 @@
 		<Device>
 			<Add option="$device=cortex-m4" />
 			<Add option="$fpu=fpv4-sp-d16" />
+			<Add option="$lscript=./stm32f407zg_flash.ld" />
 			<Add option="$stack=0x0100" />
 			<Add option="$heap=0x0000" />
-			<Add option="$lscript=./stm32f407zg_flash.ld" />
 		</Device>
 		<Compiler>
 			<Add option="-mfloat-abi=hard" />
@@ -68,6 +68,7 @@
 			<Add option="-fno-strict-aliasing" />
 			<Add option="-DSTM32F4XX" />
 			<Add option="-DUSE_STDPERIPH_DRIVER" />
+			<Add symbol="HSE_VALUE=12000000" />
 			<Add directory=".\inc" />
 			<Add directory=".\src" />
 			<Add directory=".\cmsis" />
@@ -75,13 +76,18 @@
 			<Add directory=".\SPL\src" />
 		</Compiler>
 		<Linker>
-			<Add option="-eb_start_files" />
 			<Add option="-eb_lib=n" />
+			<Add option="-eb_start_files" />
 		</Linker>
-		<Unit filename="FreeRTOS\inc\FreeRTOS.h" />
-		<Unit filename="FreeRTOS\inc\StackMacros.h" />
+		<Unit filename="cmsis\arm_common_tables.h" />
+		<Unit filename="cmsis\arm_math.h" />
+		<Unit filename="cmsis\core_cm4.h" />
+		<Unit filename="cmsis\core_cm4_simd.h" />
+		<Unit filename="cmsis\core_cmFunc.h" />
+		<Unit filename="cmsis\core_cmInstr.h" />
 		<Unit filename="FreeRTOS\inc\croutine.h" />
 		<Unit filename="FreeRTOS\inc\event_groups.h" />
+		<Unit filename="FreeRTOS\inc\FreeRTOS.h" />
 		<Unit filename="FreeRTOS\inc\list.h" />
 		<Unit filename="FreeRTOS\inc\mpu_wrappers.h" />
 		<Unit filename="FreeRTOS\inc\portable.h" />
@@ -89,6 +95,7 @@
 		<Unit filename="FreeRTOS\inc\projdefs.h" />
 		<Unit filename="FreeRTOS\inc\queue.h" />
 		<Unit filename="FreeRTOS\inc\semphr.h" />
+		<Unit filename="FreeRTOS\inc\StackMacros.h" />
 		<Unit filename="FreeRTOS\inc\task.h" />
 		<Unit filename="FreeRTOS\inc\timers.h" />
 		<Unit filename="FreeRTOS\src\croutine.c">
@@ -115,6 +122,16 @@
 		<Unit filename="FreeRTOS\src\timers.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="inc\audio_codec.h" />
+		<Unit filename="inc\maple_codec.h" />
+		<Unit filename="inc\my_queue.h" />
+		<Unit filename="inc\queue.h" />
+		<Unit filename="inc\stm32f4xx.h" />
+		<Unit filename="inc\stm32f4xx_conf.h" />
+		<Unit filename="inc\system_stm32f4xx.h" />
+		<Unit filename="inc\utils_edwin.h" />
+		<Unit filename="inc\WM_8731.h" />
+		<Unit filename="readme.txt" />
 		<Unit filename="SPL\inc\misc.h" />
 		<Unit filename="SPL\inc\stm32f4xx_adc.h" />
 		<Unit filename="SPL\inc\stm32f4xx_can.h" />
@@ -239,31 +256,16 @@
 		<Unit filename="SPL\src\stm32f4xx_wwdg.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="cmsis\arm_common_tables.h" />
-		<Unit filename="cmsis\arm_math.h" />
-		<Unit filename="cmsis\core_cm4.h" />
-		<Unit filename="cmsis\core_cm4_simd.h" />
-		<Unit filename="cmsis\core_cmFunc.h" />
-		<Unit filename="cmsis\core_cmInstr.h" />
-		<Unit filename="inc\WM_8731.h" />
-		<Unit filename="inc\audio_codec.h" />
-		<Unit filename="inc\maple_codec.h" />
-		<Unit filename="inc\my_queue.h" />
-		<Unit filename="inc\queue.h" />
-		<Unit filename="inc\stm32f4xx.h" />
-		<Unit filename="inc\stm32f4xx_conf.h" />
-		<Unit filename="inc\system_stm32f4xx.h" />
-		<Unit filename="inc\utils_edwin.h" />
-		<Unit filename="readme.txt" />
 		<Unit filename="src\main.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src\maple_codec.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src\startup_stm32f4xx.S">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src\syscalls.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src\syscalls.h" />
 		<Unit filename="src\system_stm32f4xx.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -275,7 +277,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger>
-				<target_debugging_settings target="Debug" active_interface="ST-link">
+				<target_debugging_settings target="Release" active_interface="ST-link">
 					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBLOCKS}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
@@ -292,7 +294,7 @@
 						</family_options>
 					</debug_interface>
 				</target_debugging_settings>
-				<target_debugging_settings target="Release" active_interface="ST-link">
+				<target_debugging_settings target="Debug" active_interface="ST-link">
 					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBLOCKS}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="0" reg_filter="0" active_family="STMicroelectronics">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
