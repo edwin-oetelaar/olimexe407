@@ -1013,17 +1013,21 @@
 	<stdint.h>
 	"stm32f4xx_conf.h"
 
-1437656400 \\vboxsvr\olimexe407\cmsis\core_cm4.h
+1426697348 \\vboxsvr\olimexe407\cmsis\core_cm4.h
 	<stdint.h>
 	<core_cmInstr.h>
 	<core_cmFunc.h>
-	<core_cm4_simd.h>
+	<core_cmSimd.h>
 
-1437656400 \\vboxsvr\olimexe407\cmsis\core_cminstr.h
+1426697348 \\vboxsvr\olimexe407\cmsis\core_cminstr.h
 	<cmsis_iar.h>
+	<cmsis_ccs.h>
+	<cmsis_csm.h>
 
-1437656400 \\vboxsvr\olimexe407\cmsis\core_cmfunc.h
+1426697348 \\vboxsvr\olimexe407\cmsis\core_cmfunc.h
 	<cmsis_iar.h>
+	<cmsis_ccs.h>
+	<cmsis_csm.h>
 
 1437656400 \\vboxsvr\olimexe407\cmsis\core_cm4_simd.h
 	<cmsis_iar.h>
@@ -1276,7 +1280,7 @@
 	"stm32f4xx_wwdg.h"
 	"stm32f4xx_rcc.h"
 
-1438171678 source:\\vboxsvr\olimexe407\src\main.c
+1438340579 source:\\vboxsvr\olimexe407\src\main.c
 	"stm32f4xx_conf.h"
 	"FreeRTOS.h"
 	"utils_edwin.h"
@@ -1287,6 +1291,8 @@
 	"semphr.h"
 	"my_queue.h"
 	<stdio.h>
+	<math.h>
+	"arm_math.h"
 
 1437656400 \\vboxsvr\olimexe407\inc\utils_edwin.h
 
@@ -1317,4 +1323,18 @@
 	<sys/stat.h>
 
 1437999600 \\vboxsvr\olimexe407\src\syscalls.h
+
+1426697348 \\vboxsvr\olimexe407\cmsis\core_cmsimd.h
+	<cmsis_iar.h>
+	<cmsis_ccs.h>
+	<cmsis_csm.h>
+
+1426845960 \\vboxsvr\olimexe407\cmsis\arm_math.h
+	"core_cm7.h"
+	"core_cm4.h"
+	"core_cm3.h"
+	"core_cm0.h"
+	"core_cm0plus.h"
+	"string.h"
+	"math.h"
 
