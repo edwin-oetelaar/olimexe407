@@ -19,11 +19,12 @@
 #include "my_queue.h"
 //#include "maple_codec.h"
 #include <stdio.h>
+#include <inttypes.h>
 // #include "WM_8731.h"
 
 #define USE_DEFAULT_TIMEOUT_CALLBACK 1 /* forces hangup */
 
-const uint32_t baudrate = 115200; // debug console baud rate
+const uint32_t baudrate = 921600; // debug console baud rate
 /* Note to SELF :
  * choose the correct target in stm32f4xx.h eg STM32F40_41xxx for the olimex stm32f407 ethernet board
  * choose the correct crystal frequency 12MHz #define HSE_VALUE ((uint32_t)12000000)  Value of the External oscillator in Hz
@@ -264,8 +265,8 @@ void hardware_LED_Toggle()
     static uint32_t x = 0xFFFFFFFF - 10; // check overflow behaviour
     i = !i;
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, i); // RESET
-    char buf[20];
-    snprintf(buf, sizeof(buf) / sizeof(buf[0]), "x=%lu\r\n", x++);
+    char buf[40];
+    snprintf(buf, sizeof buf , "TimerCallback x=%lu\r\n", x++);
     SERIAL_puts(buf);
 }
 
@@ -287,11 +288,15 @@ int main(void)
 
     char buf[100];
 
-    sprintf(buf,"speeds %d %d %d %d\n",
-            RCC_kloks.SYSCLK_Frequency,
-            RCC_kloks.HCLK_Frequency,
-            RCC_kloks.PCLK1_Frequency,
-            RCC_kloks.PCLK2_Frequency);
+    snprintf(buf,sizeof buf, "\r\nCPU clock speeds\r\n"
+             "SYSCLK=%"PRIu32"\r\n"
+             "HCLK=%"PRIu32"\r\n"
+             "PCLK1=%"PRIu32"\r\n"
+             "PCLK2=%"PRIu32"\r\n",
+             RCC_kloks.SYSCLK_Frequency,
+             RCC_kloks.HCLK_Frequency,
+             RCC_kloks.PCLK1_Frequency,
+             RCC_kloks.PCLK2_Frequency);
 
     SERIAL_puts(buf);
 
@@ -306,6 +311,11 @@ int main(void)
 //   init_I2C1();
     SERIAL_puts("I2C init done\r\n");
     // uint8_t killswitch_val = Codec_ReadRegister(WM8731_LINVOL); /* read left input volume */
+    int r = test_math();
+    if (r == 0)
+        SERIAL_puts("MATH OK\r\n");
+    else
+        SERIAL_puts("MATH FAIL\r\n");
 
     TimerHandle_t xSecondenTimer;
 

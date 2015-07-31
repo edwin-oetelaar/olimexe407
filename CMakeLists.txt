@@ -14,7 +14,7 @@ SET(CWARN "-Wall -Wstrict-prototypes")
 SET(COPT "-Os")
 
 SET(CMCU "-mcpu=cortex-m4")
-SET(CDEFS "-ffunction-sections -fsingle-precision-constant -mthumb -mlittle-endian -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wl,--verbose,--no-undefined,-T,${PROJECT_SOURCE_DIR}/stm32f407zg_flash.ld ")
+SET(CDEFS "-specs=nano.specs -fgcse -fexpensive-optimizations -fcse-skip-blocks -fcse-follow-jumps -fdata-sections -ffunction-sections -ffunction-sections -fsingle-precision-constant -mthumb -mlittle-endian -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wl,--verbose,--no-undefined,-T,${PROJECT_SOURCE_DIR}/stm32f407zg_flash.ld ")
 
 
 SET(CFLAGS "${CMCU} ${CDEBUG} ${CDEFS} ${CINCS} ${COPT} ${CWARN} ${CSTANDARD} ${CEXTRA}")
@@ -30,7 +30,7 @@ set(SOURCE_FILES
     cmsis/arm_common_tables.h
     cmsis/arm_math.h
     cmsis/core_cm4.h
-    cmsis/core_cm4_simd.h
+    cmsis/core_cmSimd.h
     cmsis/core_cmFunc.h
     cmsis/core_cmInstr.h
     FreeRTOS/inc/croutine.h
@@ -138,15 +138,20 @@ include_directories(FreeRTOS/inc)
 include_directories(inc)
 include_directories(SPL/inc)
 include_directories(cmsis)
+include_directories(cmsis/Lib)
 # SET(CMAKE_EXE_LINKER_FLAGS "-static")
 # MESSAGE(STATUS "link flags" ${CMAKE_SHARED_LIBRARY_LINK_C_FLAGS} )
 SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 
-add_definitions(-DARM_MATH_CM4)
-add_definitions(-D__FPU_USED)
-add_definitions(-DUSE_STDPERIPH_DRIVER)
+add_definitions(-DARM_MATH_CM4=1)
+add_definitions(-D__FPU_USED=1)
+add_definitions(-DUSE_STDPERIPH_DRIVER=1)
 add_definitions(-D__ASSEMBLY__)
 add_definitions(-DSTM32F40_41xxx)
+add_definitions(-DSTM32F40_41xxx)
+add_definitions(-DHSE_VALUE=12000000)
+add_definitions(-D__FPU_PRESENT=1)
+
 SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 SET(BUILD_SHARED_LIBRARIES OFF)
 
@@ -155,6 +160,8 @@ SET(BUILD_SHARED_LIBRARIES OFF)
 add_executable(olimexe407 ${SOURCE_FILES} )
 
 target_link_libraries(olimexe407 c m )
+link_directories(${PROJECT_SOURCE_DIR}/cmsis/Lib/GCC)
+target_link_libraries(olimexe407 ${PROJECT_SOURCE_DIR}/cmsis/Lib/GCC/libarm_cortexM4lf_math.a )
 # bash# arm-none-eabi-gcc -I. -c -fno-common -O0 -g -mcpu=cortex-m3 -mthumb main.c
 #bash# arm-none-eabi-ld -Tstm32.ld -nostartfiles -o main.elf main.o
 # bash# arm-none-eabi-objcopy -Obinary main.elf main.bin
