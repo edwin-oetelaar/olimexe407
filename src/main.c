@@ -4,6 +4,10 @@
  * made for personal use, but if you like it, use it
 */
 
+
+#include <math.h>
+#include "arm_math.h"
+
 #include "stm32f4xx_conf.h"
 #include "FreeRTOS.h"
 #include "utils_edwin.h"
@@ -299,7 +303,7 @@ int main(void)
 
     SERIAL_puts("I2C init\r\n");
 // we nemen PB9 en PB8 I2C1 omdat die op UEXT zitten
- //   init_I2C1();
+//   init_I2C1();
     SERIAL_puts("I2C init done\r\n");
     // uint8_t killswitch_val = Codec_ReadRegister(WM8731_LINVOL); /* read left input volume */
 
