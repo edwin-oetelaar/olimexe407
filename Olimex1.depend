@@ -1280,7 +1280,7 @@
 	"stm32f4xx_wwdg.h"
 	"stm32f4xx_rcc.h"
 
-1438349025 source:\\vboxsvr\olimexe407\src\main.c
+1438427099 source:\\vboxsvr\olimexe407\src\main.c
 	<math.h>
 	"arm_math.h"
 	"stm32f4xx_conf.h"
@@ -1294,8 +1294,11 @@
 	"my_queue.h"
 	<stdio.h>
 	<inttypes.h>
+	"test_math.h"
 
-1437656400 \\vboxsvr\olimexe407\inc\utils_edwin.h
+1438427172 \\vboxsvr\olimexe407\inc\utils_edwin.h
+	"my_queue.h"
+	<inttypes.h>
 
 1437657180 \\vboxsvr\olimexe407\freertos\inc\semphr.h
 	"queue.h"
@@ -1307,7 +1310,9 @@
 1438337223 source:\\vboxsvr\olimexe407\src\system_stm32f4xx.c
 	"stm32f4xx.h"
 
-1438019220 source:\\vboxsvr\olimexe407\src\utils_edwin.c
+1438426778 source:\\vboxsvr\olimexe407\src\utils_edwin.c
+	<stm32f4xx_gpio.h>
+	"utils_edwin.h"
 	"FreeRTOS.h"
 	"task.h"
 
@@ -1339,7 +1344,9 @@
 	"string.h"
 	"math.h"
 
-1438348958 source:\\vboxsvr\olimexe407\src\test_math.c
+1438426842 source:\\vboxsvr\olimexe407\src\test_math.c
 	<math.h>
 	"arm_math.h"
+
+1438427041 \\vboxsvr\olimexe407\inc\test_math.h
 

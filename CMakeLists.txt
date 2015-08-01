@@ -127,11 +127,12 @@ set(SOURCE_FILES
     SPL/src/stm32f4xx_tim.c
     SPL/src/stm32f4xx_usart.c
     SPL/src/stm32f4xx_wwdg.c
-    src/main.c
     src/system_stm32f4xx.c
     src/utils_edwin.c
+    src/test_math.c
     src/syscalls.h
     src/syscalls.c
+    src/main.c 
     )
 
 include_directories(FreeRTOS/inc)

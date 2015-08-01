@@ -4,10 +4,8 @@
  * made for personal use, but if you like it, use it
 */
 
-
 #include <math.h>
 #include "arm_math.h"
-
 #include "stm32f4xx_conf.h"
 #include "FreeRTOS.h"
 #include "utils_edwin.h"
@@ -20,89 +18,14 @@
 //#include "maple_codec.h"
 #include <stdio.h>
 #include <inttypes.h>
+#include "test_math.h"
 // #include "WM_8731.h"
 
 #define USE_DEFAULT_TIMEOUT_CALLBACK 1 /* forces hangup */
 
 const uint32_t baudrate = 921600; // debug console baud rate
-/* Note to SELF :
- * choose the correct target in stm32f4xx.h eg STM32F40_41xxx for the olimex stm32f407 ethernet board
- * choose the correct crystal frequency 12MHz #define HSE_VALUE ((uint32_t)12000000)  Value of the External oscillator in Hz
- * double check the PLL values in system_stm32f4xx.c
- * example for olimex 12MHz external
- * #define PLL_M      12
- * #define PLL_N      336
- * #define PLL_P      2
- * USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ
- *  #define PLL_Q      7
-*/
 
-struct
-{
-    queue_hdr_t hdr; // must be named "hdr"
-    uint8_t items[256]; // must be named "items", 1 space wasted
-} my_TX_queue;
-
-struct
-{
-    queue_hdr_t hdr; // must be named "hdr"
-    uint8_t items[128]; // must be named "items", 1 space wasted
-} my_RX_queue;
-
-/* stop een string in de output buffer van de serial poort
-de interrupt handler zorgt ervoor dat de buffer vanzelf
-verstuurd wordt zonder dat dit tijd kost in het programma
-Als de buffer vol is worden de tekens zomaar weggegooid, jammer dan.
- */
-void SERIAL_puts(const char *s)
-{
-    while (*s)
-    {
-        if (!QUEUE_FULL(my_TX_queue))
-        {
-            // er is ruimte, stop teken in de queue
-            QUEUE_PUT(my_TX_queue, *s);
-            // volgende teken
-            s++;
-        }
-        else
-        {
-            // buffer vol, we moeten wat anders doen nu
-            // deze functie blockt nu
-            USART_ITConfig(USART6, USART_IT_TXE, ENABLE);
-            vTaskDelay(0);
-        }
-    }
-    // de interrupt handler voor Transmit register Empty aanzetten
-    USART_ITConfig(USART6, USART_IT_TXE, ENABLE);
-}
-
-void SERIAL_write(const char *s, uint32_t len)
-{
-    while (len)
-    {
-        if (!QUEUE_FULL(my_TX_queue))
-        {
-            // er is ruimte, stop teken in de queue
-            QUEUE_PUT(my_TX_queue, *s);
-            // volgende teken
-            s++;
-            len--;
-        }
-        else
-        {
-            // buffer vol, we moeten wat anders doen nu
-            // deze functie blockt nu
-            USART_ITConfig(USART6, USART_IT_TXE, ENABLE);
-            vTaskDelay(0);
-        }
-    }
-    // de interrupt handler voor Transmit register Empty aanzetten
-    USART_ITConfig(USART6, USART_IT_TXE, ENABLE);
-}
-
-void init_LED_GPIO()
-{
+void init_LED_GPIO() {
 // enable clocks
 // enable pin
     GPIO_InitTypeDef GPIO_InitStruct; // this is for the GPIO
@@ -119,65 +42,8 @@ void init_LED_GPIO()
 
 }
 
-
-/* debug info on USART 6 connected to USB */
-void init_USART6(uint32_t baudrate)
-{
-    GPIO_InitTypeDef GPIO_InitStruct; // this is for the GPIO pins used as TX and RX
-    USART_InitTypeDef USART_InitStruct; // this is for the USART2 initialization
-    NVIC_InitTypeDef NVIC_InitStructure; // this is used to configure the NVIC (nested vector interrupt controller)
-
-    /* init the struct with defaults */
-    GPIO_StructInit(&GPIO_InitStruct);
-    USART_StructInit(&USART_InitStruct);
-
-    // enable Clocks for APB2 and GPIOC
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
-
-    // Connect to pins to AF (must be first??)
-    GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_USART6); // PA2 tx
-    GPIO_PinAFConfig(GPIOC, GPIO_PinSource7, GPIO_AF_USART6); // PA3 rx
-
-    // init the pins as alternate function
-    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7; // Pins 6 (TX) and 7 (RX) are used
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
-    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
-    GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    /* enable clock on usart */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
-
-    /* setup the usart parameters */
-    USART_InitStruct.USART_BaudRate = baudrate;
-    USART_InitStruct.USART_WordLength = USART_WordLength_8b;
-    USART_InitStruct.USART_StopBits = USART_StopBits_1;
-    USART_InitStruct.USART_Parity = USART_Parity_No;
-    USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-    USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
-
-    /* write config into usart */
-    USART_Init(USART6, &USART_InitStruct);
-// enable the USART2 receive interrupt
-    USART_ITConfig(USART6, USART_IT_RXNE, ENABLE);
-    //disable Transmit Data Register empty interrupt
-    USART_ITConfig(USART6, USART_IT_TXE, DISABLE);
-
-    // setup the interrupt controller
-    NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0f;//f;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0f; //f;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    // write config into registers
-    NVIC_Init(&NVIC_InitStructure);
-//Enable USART6
-    USART_Cmd(USART6, ENABLE);
-}
-
 // i2c PB8 en PB9
-void init_I2C1(void)
-{
+void init_I2C1(void) {
     GPIO_InitTypeDef GPIO_InitStruct;
     I2C_InitTypeDef I2C_InitStruct;
 
@@ -203,8 +69,7 @@ void init_I2C1(void)
     /* Reset I2C1 IP */
     RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, ENABLE);
     int x = 100000;
-    while (x)
-    {
+    while (x) {
         x--;
     }
     /* Release reset signal of I2C1 IP */
@@ -227,72 +92,37 @@ void init_I2C1(void)
 }
 
 
-// this is the interrupt request handler (IRQ) for ALL USART6 interrupts
-void USART6_IRQHandler(void)
-{
-    /* if Receive Register not empty then get byte */
-    if (USART_GetITStatus(USART6, USART_IT_RXNE) != RESET)
-    {
-        uint8_t ch = USART6->DR;
-        // als de buffer niet vol dan erbij proppen, anders jammer dan, weg ermee
-        if (!QUEUE_FULL(my_RX_queue))
-        {
-            QUEUE_PUT(my_RX_queue, ch);
-        }
-    }
-    // moeten we wat zenden, TX empty interrupt?
-    if (USART_GetITStatus(USART6, USART_IT_TXE) != RESET)
-    {
-        uint8_t ch;
-        if (!QUEUE_EMPTY(my_TX_queue))
-        {
-            QUEUE_GET(my_TX_queue, ch);
-            USART_SendData(USART6, ch);
-        }
-        else
-        {
-            // no data in buf, disable Transmit Data Register empty interrupt
-            USART_ITConfig(USART6, USART_IT_TXE, DISABLE);
-        }
-    }
-    // Clear all flags
-    // USART_ClearITPendingBit(USART6, (USART_IT_CTS | USART_IT_LBD | USART_IT_TC | USART_IT_RXNE));
-}
 
-void hardware_LED_Toggle()
-{
+
+void hardware_LED_Toggle() {
     static int i = 0;
     static uint32_t x = 0xFFFFFFFF - 10; // check overflow behaviour
     i = !i;
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, i); // RESET
     char buf[40];
-    snprintf(buf, sizeof buf , "TimerCallback x=%lu\r\n", x++);
+    snprintf(buf, sizeof buf, "TimerCallback x=%lu\r\n", x++);
     SERIAL_puts(buf);
 }
 
-void vTimerCallback(void *ptr)
-{
+void vTimerCallback(void *ptr) {
     /* do something visible */
     hardware_LED_Toggle();
 }
 
 
-int main(void)
-{
-    QUEUE_INIT(my_TX_queue); // usart6 serial
-    QUEUE_INIT(my_RX_queue); // usart6 serial
+int main(void) {
 
-    init_USART6(baudrate);
+    init_SERIAL(baudrate); // set up usart6
     RCC_ClocksTypeDef RCC_kloks;
     RCC_GetClocksFreq(&RCC_kloks);
 
     char buf[100];
 
-    snprintf(buf,sizeof buf, "\r\nCPU clock speeds\r\n"
-             "SYSCLK=%"PRIu32"\r\n"
-             "HCLK=%"PRIu32"\r\n"
-             "PCLK1=%"PRIu32"\r\n"
-             "PCLK2=%"PRIu32"\r\n",
+    snprintf(buf, sizeof buf, "\r\nCPU clock speeds\r\n"
+                     "SYSCLK=%"PRIu32"\r\n"
+                     "HCLK=%"PRIu32"\r\n"
+                     "PCLK1=%"PRIu32"\r\n"
+                     "PCLK2=%"PRIu32"\r\n",
              RCC_kloks.SYSCLK_Frequency,
              RCC_kloks.HCLK_Frequency,
              RCC_kloks.PCLK1_Frequency,
@@ -325,8 +155,7 @@ int main(void)
 
     vTaskStartScheduler(); /* will not return */
 
-    while (1)
-    {
+    while (1) {
         // we do not get here
     }
 }
@@ -339,11 +168,9 @@ int main(void)
   * @param  None
   * @retval None
   */
-uint32_t Codec_TIMEOUT_UserCallback(void)
-{
+uint32_t Codec_TIMEOUT_UserCallback(void) {
     /* Block communication and all processes */
-    while (1)
-    {
+    while (1) {
     }
 }
 

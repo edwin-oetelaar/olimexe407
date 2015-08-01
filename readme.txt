@@ -28,3 +28,15 @@ Ethernet,
 Camera interface
 
 Price about 39 Euro.
+
+/* Note to SELF :
+ * choose the correct target in stm32f4xx.h eg STM32F40_41xxx for the olimex stm32f407 ethernet board
+ * choose the correct crystal frequency 12MHz #define HSE_VALUE ((uint32_t)12000000)  Value of the External oscillator in Hz
+ * double check the PLL values in system_stm32f4xx.c
+ * example for olimex 12MHz external
+ * #define PLL_M      12
+ * #define PLL_N      336
+ * #define PLL_P      2
+ * USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ
+ * #define PLL_Q      7
+*/
